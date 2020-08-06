@@ -32,9 +32,9 @@
             position: absolute;
             left: 5%;
             top: 70%;
-            align-items: 
+            align-items: center;
         }
-        button{
+        .btnLetras{
             background-color: #CDAA7D;
             font-size: 25px;
             font-weight: bold;
@@ -46,50 +46,117 @@
             position: flex;
             transform: translateX(25%);
         }
-
+        .btnPrincipais {
+            background-color: #CDAA7D;
+            font-size: 25px;
+            font-weight: bold;
+            font-family: Arial;
+            width: 150px;
+            height: 50px;
+            border: solid;
+            position: flex;
+            transform: translateX(70%);
+        }
+        #tracos {
+            display: grid;
+            width: 500px;
+            height: 180px;
+            grid-template-columns: repeat(6 , 1fr);
+            grid-template-rows: 50px;
+            position: absolute;
+            left: 5%;
+            top: 40%;
+            align-items: end;
+            justify-content: space-between;
+        }
+        .traco {
+            width: 50px;
+            height: 0px;
+            border: solid;
+        }
+        .letra{
+            font-size: 50px;
+            font-weight: bold;
+            font-family: Arial;
+            transform: translateY(-160%);
+        }
     </style>
        
 
 </head>
 <body>
     <h1 id="titulo" >Jogo da Forca</h1>
-    <div id="telaDaForca" class="container">
-        
-
-    </div>
+    <div id="telaDaForca" class="container"></div>
+    <button id="btnIniciar" class="btnPrincipais">Iniciar</button>
+    <button id="btnReiniciar" class="btnPrincipais">Reiniciar</button> 
+    <div id="tracos"></div>  
+    
     <div id="divBtn">
-            <button id="btnA">A</button>
-            <button id="btnB">B</button>
-            <button id="btnC">C</button>
-            <button id="btnD">D</button>
-            <button id="btnE">E</button>
-            <button id="btnF">F</button>
-            <button id="btnG">G</button>
-            <button id="btnH">H</button>
-            <button id="btnI">I</button>
-            <button id="btnJ">J</button>
-            <button id="btnK">K</button>
-            <button id="btnL">L</button>
-            <button id="btnM">M</button>
-            <button id="btnN">N</button>
-            <button id="btnO">O</button>
-            <button id="btnP">P</button>
-            <button id="btnQ">Q</button>
-            <button id="btnR">R</button>
-            <button id="btnS">S</button>
-            <button id="btnT">T</button>
-            <button id="btnU">U</button>
-            <button id="btnV">V</button>
-            <button id="btnW">W</button>
-            <button id="btnX">X</button>
-            <button id="btnY">Y</button>
-            <button id="btnZ">Z</button>
+            <button id="btnA" class="btnLetras" onclick="mostrarLetra('A')">A</button>
+            <button id="btnB" class="btnLetras" onclick="mostrarLetra('B')">B</button>
+            <button id="btnC" class="btnLetras" onclick="mostrarLetra('C')">C</button>
+            <button id="btnD" class="btnLetras" onclick="mostrarLetra('D')">D</button>
+            <button id="btnE" class="btnLetras" onclick="mostrarLetra('E')">E</button>
+            <button id="btnF" class="btnLetras" onclick="mostrarLetra('F')">F</button>
+            <button id="btnG" class="btnLetras" onclick="mostrarLetra('G')">G</button>
+            <button id="btnH" class="btnLetras" onclick="mostrarLetra('H')">H</button>
+            <button id="btnI" class="btnLetras" onclick="mostrarLetra('I')">I</button>
+            <button id="btnJ" class="btnLetras" onclick="mostrarLetra('J')">J</button>
+            <button id="btnK" class="btnLetras" onclick="mostrarLetra('K')">K</button>
+            <button id="btnL" class="btnLetras" onclick="mostrarLetra('L')">L</button>
+            <button id="btnM" class="btnLetras" onclick="mostrarLetra('M')">M</button>
+            <button id="btnN" class="btnLetras" onclick="mostrarLetra('N')">N</button>
+            <button id="btnO" class="btnLetras" onclick="mostrarLetra('O')">O</button>
+            <button id="btnP" class="btnLetras" onclick="mostrarLetra('P')">P</button>
+            <button id="btnQ" class="btnLetras" onclick="mostrarLetra('Q')">Q</button>
+            <button id="btnR" class="btnLetras" onclick="mostrarLetra('R')">R</button>
+            <button id="btnS" class="btnLetras" onclick="mostrarLetra('S')">S</button>
+            <button id="btnT" class="btnLetras" onclick="mostrarLetra('T')">T</button>
+            <button id="btnU" class="btnLetras" onclick="mostrarLetra('U')">U</button>
+            <button id="btnV" class="btnLetras" onclick="mostrarLetra('V')">V</button>
+            <button id="btnW" class="btnLetras" onclick="mostrarLetra('W')">W</button>
+            <button id="btnX" class="btnLetras" onclick="mostrarLetra('X')">X</button>
+            <button id="btnY" class="btnLetras" onclick="mostrarLetra('Y')">Y</button>
+            <button id="btnZ" class="btnLetras" onclick="mostrarLetra('Z')">Z</button>
 
         </div>
         <script>
+            const palavras = ["SAPATO", "CASA", "LEITE", "COMPUTADOR", "FONTE", "CARREGADOR", "MESA", "PARALELEPIPEDO"];
+            var palavra;
             var forca = new Image();
-            forca.src="imgs/forca.png";
-            var boneco[] = new Image();
+            forca.src ="imgs/forca.png";
+            //var boneco[] = new Image();
+            
+            function criarTracos(qtdTracos){
+                for(var i = 0; i < qtdTracos; i++){
+                    var novoTraco = document.createElement("div");
+                    novoTraco.setAttribute("id", "traco" + i);
+                    novoTraco.setAttribute("class", "traco");
+                    document.getElementById("tracos").appendChild(novoTraco);
+                }
+                
+            }
+
+            function mostrarLetra(letra){
+                for(var i = 0; i < palavra.length; i++){
+                    if(letra == palavra[i]){
+                        var novaLetra = document.createElement("h2");
+                        novaLetra.setAttribute("id", "letra" + i);
+                        novaLetra.setAttribute("class", "letra");
+                        document.getElementById("traco" + i).appendChild(novaLetra);
+                        document.getElementById("letra" + i).innerHTML = letra;
+                    }
+                }
+            }
+
+            function iniciarJogo() {
+                palavra = palavras[Math.floor(Math.random()*(palavras.length))];
+                criarTracos(palavra.length);
+
+            }
+
+            document.getElementById("btnIniciar").addEventListener("click", iniciarJogo);
+            
 
         </script>
 
