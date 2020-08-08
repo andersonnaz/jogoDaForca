@@ -123,6 +123,7 @@
         <script>
             const palavras = ["SAPATO", "CASA", "LEITE", "COMPUTADOR", "FONTE", "CARREGADOR", "MESA", "PARALELEPIPEDO"];
             var palavra;
+            var contadorDeErros;
             var forca = new Image();
             forca.src ="imgs/forca.png";
             //var boneco[] = new Image();
@@ -138,25 +139,68 @@
             }
 
             function mostrarLetra(letra){
-                for(var i = 0; i < palavra.length; i++){
-                    if(letra == palavra[i]){
-                        var novaLetra = document.createElement("h2");
-                        novaLetra.setAttribute("id", "letra" + i);
-                        novaLetra.setAttribute("class", "letra");
-                        document.getElementById("traco" + i).appendChild(novaLetra);
-                        document.getElementById("letra" + i).innerHTML = letra;
+                var achouLetra = true;
+                if(contadorDeErros > 0){
+                    for(var i = 0; i < palavra.length; i++){
+                        if(letra == palavra[i]){
+                            var novaLetra = document.createElement("h2");
+                            novaLetra.setAttribute("id", "letra" + i);
+                            novaLetra.setAttribute("class", "letra");
+                            document.getElementById("traco" + i).appendChild(novaLetra);
+                            document.getElementById("letra" + i).innerHTML = letra;
+                            document.getElementById("btn" + letra).style.color = "#00f";
+                            document.getElementById("btn" + letra).style.backgroundColor = "#CDC9C9";
+                            document.getElementById("btn" + letra).disabled = true;
+                            achouLetra = false;
+                        }   
                     }
+
+                    if(achouLetra){
+                        document.getElementById("btn" + letra).style.color = "#f00";
+                        document.getElementById("btn" + letra).style.backgroundColor = "#CDC9C9";
+                        document.getElementById("btn" + letra).disabled = true;
+                        contadorDeErros -= 1;
+                    }
+                }else{
+                    alert("VOCÊ PERDEU!!!");
+                    reiniciar();
                 }
+                
             }
 
             function iniciarJogo() {
+                contadorDeErros = 9;
+                habilitarBotoes();
                 palavra = palavras[Math.floor(Math.random()*(palavras.length))];
                 criarTracos(palavra.length);
 
             }
 
+            function desabilitarBotoes(){
+                document.getElementById("btnReiniciar").disabled = true;
+                var desabilitarLetras = document.getElementsByClassName("btnLetras");
+                for(var i = 0; i < desabilitarLetras.length; i++){
+                    desabilitarLetras[i].disabled = true;
+                }
+                
+            }
+
+            function habilitarBotoes(){
+                document.getElementById("btnReiniciar").disabled = false;
+                document.getElementsByClassName("btnLetras").disabled = false;
+                var desabilitarLetras = document.getElementsByClassName("btnLetras");
+                for(var i = 0; i < desabilitarLetras.length; i++){
+                    desabilitarLetras[i].disabled = false;
+                }
+            }
+
+            function reiniciar(){
+                window.location.reload();
+            }
+
             document.getElementById("btnIniciar").addEventListener("click", iniciarJogo);
-            
+            document.getElementById("btnReiniciar").addEventListener("click", reiniciar);
+            window.addEventListener("load", desabilitarBotoes);
 
         </script>
 
