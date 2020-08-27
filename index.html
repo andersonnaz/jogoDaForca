@@ -154,6 +154,7 @@
 
             function mostrarLetra(letra){
                 var achouLetra = true;
+                var cont = 0;
                 if(contadorDeErros >= 0){
                     for(var i = 0; i < palavra.length; i++){
                         if(letra == palavra[i]){
@@ -166,10 +167,11 @@
                             document.getElementById("btn" + letra).style.backgroundColor = "#CDC9C9";
                             document.getElementById("btn" + letra).disabled = true;
                             achouLetra = false;
+                            cont++;
                         }   
                     }
                     if(!achouLetra){
-                        contadorDeAcertos += 1;
+                        contadorDeAcertos = contadorDeAcertos + cont;
                     }
                     if(achouLetra){
                         document.getElementById("btn" + letra).style.color = "#f00";
@@ -182,13 +184,12 @@
                     }
                 }
                 if(contadorDeAcertos == palavra.length){
-                    alert("VOCÊ GANHOU!!! PARABÉNS!!");
-                    reiniciar();
-                
+                    setTimeout(function(){alert("VOCÊ GANHOU!!! PARABÉNS!!"); }, 500);
+                    setTimeout(function(){reiniciar(); }, 1000);
                 }
                 if(contadorDeErros == 0){
-                    alert("VOCÊ PERDEU!!!");
-                    reiniciar();
+                    setTimeout(function(){alert("VOCÊ PERDEU!!!"); }, 500);
+                    setTimeout(function(){reiniciar(); }, 1000);
                 }
                 
             }
