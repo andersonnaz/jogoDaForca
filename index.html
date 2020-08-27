@@ -85,6 +85,7 @@
             height: 666px;
             position: center;
             transform: translate(60%, 20%);
+            background-size: cover;
         }
     </style>
        
@@ -153,7 +154,7 @@
 
             function mostrarLetra(letra){
                 var achouLetra = true;
-                if(contadorDeErros > 0){
+                if(contadorDeErros >= 0){
                     for(var i = 0; i < palavra.length; i++){
                         if(letra == palavra[i]){
                             var novaLetra = document.createElement("h2");
@@ -174,8 +175,10 @@
                         document.getElementById("btn" + letra).style.color = "#f00";
                         document.getElementById("btn" + letra).style.backgroundColor = "#CDC9C9";
                         document.getElementById("btn" + letra).disabled = true;
+                        document.getElementById("corpo").style.backgroundImage = corpoBoneco[contadorDeErros - 2];
+                        console.log(contadorDeErros);
                         contadorDeErros -= 1;
-                        document.getElementById("corpo").style.backgroundImage = corpoBoneco[contadorDeErros];
+                        
                     }
                 }
                 if(contadorDeAcertos == palavra.length){
@@ -192,7 +195,7 @@
 
             function iniciarJogo() {
 
-                contadorDeErros = 9;
+                contadorDeErros = 11;
                 contadorDeAcertos = 0;
                 habilitarBotoes();
                 palavra = palavras[Math.floor(Math.random()*(palavras.length))];
